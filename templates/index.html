@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}
+Generate Password
+{% endblock  %}
+
+{% block body %}
+<div class=" bg-light shadow p-2">
+	<div class="mx-auto">
+		<form id="form">
+			<input type="hidden" value="{{csrf}}" id="csrf">
+				<input title="Password" type="text" readonly="true" id="password" class="form-control mb-2" placeholder="Password" required name="password" >
+			<input title="Password Name" type="url" id="name" class="form-control" placeholder="Use Web URL" required="true" name="name" >
+			<div class="mx-auto mt-2 btn-group">
+				<input type="submit" id='save' class="btn btn-dark btn-lg" value="Save">
+				<input type="submit" id="generate" class="btn btn-dark btn-lg" value="Generate Password">
+			</div>
+		</form>
+	</div>
+	<div class="container-fluid my-4 py-4 mx-auto">
+		<table class="table table-hover border border-dark  " style="word-wrap: break-word;">
+			<thead>
+				<tr class="row  row-cols-2 row-cols-md-3 row-cols-lg-4 gx-3">
+					<th>Sno</th>
+					<th>Web</th>
+					<th>Password</th>
+					<th>Browser</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for x in data %}
+				<tr class="row  row-cols-2 row-cols-md-3 row-cols-lg-4 gx-2">
+					<td class="py-1">{{loop.index}}</td>
+					<td class="py-1">{{x[1]}}</td>
+					<td class="py-1">{{f.decrypt(x[2].encode()).decode()}}</td>
+					<td class="py-1">{{x[3]}}</td>
+					<td class="py-1">
+						<a href="/delete" class="btn btn-danger">Delete</a>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock  %}
